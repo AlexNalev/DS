@@ -1,0 +1,53 @@
+class Node:
+	def __init__(self, data, prev = None, next = None):
+		self.data = data
+		self.prev = prev
+		self.next = next
+
+class Stack:
+	def __init__(self):
+		self.top = None
+
+	def isEmpty(self):
+		if self.top is None:
+			return True
+
+		return False
+
+	def push(self, data):
+		if isEmpty():
+			self.top = Node(data)
+
+		else:
+			self.auxiliary = self.top
+			self.top = Node(data, self.auxiliary)
+			self.auxiliary.next = self.top
+
+	def pop(self):
+		if isEmpty():
+			return "Stack underflow"
+
+		else:
+			self.auxiliary = self.top
+			self.top = self.top.prev
+			self.top.next = None
+			
+			return self.auxiliary.data
+
+	def peek(self):
+		if isEmpty():
+			return "There aren't elements on the list."
+
+		else:
+			return self.top.data
+
+	def show_elements(self):
+		if isEmpty():
+			print("No elements to show.")
+
+		else:
+			self.traversal = self.top
+
+			while self.traversal.prev is not None:
+				print(self.traversal.data)
+				self.traversal = self.traversal.prev
