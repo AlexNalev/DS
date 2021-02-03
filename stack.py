@@ -1,64 +1,59 @@
-class Node:
-    def __init__(self, data, prev=None, next=None):
-        self.data = data
-        self.prev = prev
-        self.next = next
+# added line from the currently branch
 
+class Node:
+	def __init__(self, data, prev = None, next = None):
+		self.data = data
+		self.prev = prev
+		self.next = next
 
 class Stack:
-    def __init__(self):
-        self.top = None
+	def __init__(self):
+		self.top = None
 
-    def isEmpty(self):
-        if self.top is None:
-            return True
+	def isEmpty(self):
+		if self.top is None:
+			return True
 
-        return False
+		return False
 
-    def push(self, data):
-        if self.isEmpty():
-            self.top = Node(data)
+	def push(self, data):
+		if isEmpty():
+			self.top = Node(data)
 
-        else:
-            self.auxiliary = self.top
-            self.top = Node(data, self.auxiliary)
-            self.auxiliary.next = self.top
+		else:
+			self.auxiliary = self.top
+			self.top = Node(data, self.auxiliary)
+			self.auxiliary.next = self.top
 
-    def pop(self):
-        if self.isEmpty():
-            return "Stack underflow"
+	def pop(self):
+		if isEmpty():
+			return "Stack underflow"
 
-        else:
-            if self.top.prev is None:
-                auxiliary = self.top.data
-                self.top = None
+		else:
+			self.auxiliary = self.top
+			self.top = self.top.prev
+			self.top.next = None
+			
+			return self.auxiliary.data
 
-            else:
-                self.auxiliary = self.top
-                self.top = self.top.prev
-                self.top.next = None
-                auxiliary = self.auxiliary.data
-                self.auxiliary = None
+	def peek(self):
+		if isEmpty():
+			return "There aren't elements on the list."
 
-            return auxiliary
+		else:
+			return self.top.data
 
-    def peek(self):
-        if self.isEmpty():
-            return "There aren't elements on the list."
+	def show_elements(self):
+		if isEmpty():
+			print("No elements to show.")
 
-        else:
-            return self.top.data
+		else:
+			self.traversal = self.top
 
-    def show_elements(self):
-        if self.isEmpty():
-            print("No elements to show.")
+			while self.traversal.prev is not None:
+				print(self.traversal.data)
+				self.traversal = self.traversal.prev
 
-        else:
-            self.traversal = self.top
-
-            while self.traversal is not None:
-                print(self.traversal.data)
-                self.traversal = self.traversal.prev
 
 plates = Stack()
 print(plates.pop())
