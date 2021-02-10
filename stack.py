@@ -1,10 +1,8 @@
-# added line from the currently branch
-
 class Node:
-	def __init__(self, data, prev = None, next = None):
+	def __init__(self, data, next = None, prev = None):
 		self.data = data
-		self.prev = prev
 		self.next = next
+		self.prev = prev
 
 class Stack:
 	def __init__(self):
@@ -17,42 +15,49 @@ class Stack:
 		return False
 
 	def push(self, data):
-		if isEmpty():
+		if self.isEmpty():
 			self.top = Node(data)
 
 		else:
 			self.auxiliary = self.top
 			self.top = Node(data, self.auxiliary)
-			self.auxiliary.next = self.top
+			self.auxiliary.prev = self.top
 
 	def pop(self):
-		if isEmpty():
+		if self.isEmpty():
 			return "Stack underflow"
 
 		else:
-			self.auxiliary = self.top
-			self.top = self.top.prev
-			self.top.next = None
+			if self.top.next is None:
+				auxiliary2 = self.top.data
+				self.top = None
+
+			else:
+				self.auxiliary = self.top
+				self.top = self.top.next
+				self.top.prev = None
+				auxiliary2 = self.auxiliary.data
+				self.auxiliary = None
 			
-			return self.auxiliary.data
+			return auxiliary2
 
 	def peek(self):
-		if isEmpty():
+		if self.isEmpty():
 			return "There aren't elements on the list."
 
 		else:
 			return self.top.data
 
 	def show_elements(self):
-		if isEmpty():
+		if self.isEmpty():
 			print("No elements to show.")
 
 		else:
 			self.traversal = self.top
 
-			while self.traversal.prev is not None:
+			while self.traversal is not None:
 				print(self.traversal.data)
-				self.traversal = self.traversal.prev
+				self.traversal = self.traversal.next
 
 
 plates = Stack()
@@ -69,4 +74,8 @@ plates.show_elements()
 print()
 print(plates.peek())
 print()
+plates.pop()
+plates.pop()
+plates.pop()
+plates.pop()
 plates.show_elements()
