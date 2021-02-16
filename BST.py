@@ -37,16 +37,29 @@ class BinarySearchTree:
 					else:
 						self.aux = self.aux.right
 				else:
+					print(element)
 					counter += 1
 
 	def preorder(self, node):
 		if node is None:
 			return
 		else:
-			print(node.data)
+			print(node.data, end=" ")
 			self.preorder(node.left)
 			self.preorder(node.right)
 
+	def inorder(self, node):
+		if node is None:
+			return
 
-bt = BinarySearchTree(8, 3, 3, 10, 1, 6, 14, 4, 7, 13)
+		else:
+			self.inorder(node.left)
+			print(node.data, end = " ")
+			self.inorder(node.right)
+
+
+bt = BinarySearchTree(8, 3, 10, 1, 6, 14, 4, 7, 13)
+print("--------------------Preorder traversal-----------------")
 bt.preorder(bt.root)
+print("\n--------------------Inorder traversal-----------------")
+bt.inorder(bt.root)
