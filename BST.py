@@ -57,9 +57,32 @@ class BinarySearchTree:
 			print(node.data, end = " ")
 			self.inorder(node.right)
 
+	def postorder(self, node):
+		if node is None:
+			return
+		else:
+			self.postorder(node.left)
+			self.postorder(node.right)
+			print(node.data, end=" ")
+
+	def level_order(self, root):
+		self.queue.append(root)
+
+		while len(self.queue) != 0:
+			node = self.queue.pop(0)
+			print(node.data, end=" ")
+			if node.left is not None:
+				self.queue.append(node.left)
+			if node.right is not None:
+				self.queue.append(node.right)
+
 
 bt = BinarySearchTree(8, 3, 10, 1, 6, 14, 4, 7, 13)
 print("--------------------Preorder traversal-----------------")
 bt.preorder(bt.root)
 print("\n--------------------Inorder traversal-----------------")
 bt.inorder(bt.root)
+print("\n--------------------Postorder traversal-----------------")
+bt.postorder(bt.root)
+print("\n--------------------Level traversal-----------------")
+bt.level_order(bt.root)
