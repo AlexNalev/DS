@@ -1,83 +1,88 @@
 class Node:
-	def __init__(self, data, left=None, right=None):
-		self.data = data
-		self.left = left
-		self.right = right
+    def __init__(self, data):
+        self.data = data
+        self.left = self.right = None
 
 
 class BinarySearchTree:
-	def __init__(self, *args):
-		self.root = None
-		self.aux = None
-		self.elements = []
-		self.elements.extend([*args])
-		self.root = Node(self.elements[0])
-		self.order_tree()
+    def __init__(self):
+        self.root = None
+        self.ask_elements()
 
-	def order_tree(self):
-		if self.root is not None:
-			self.aux = self.root
-			counter = 1
+    @classmethod
+    def insert(cls, root, data):
+        """
+        This method is a class method to create a tree that is not gonna have more
+        elements once it's built.
+        If we want to allow the insertion of new elements, we take out the class 
+        references and make this function a function of the instances of the
+        Binary Search Tree class.
+        In the main it will be called as:
+        bt.insert(bt.root, data)
+        """
+        if root is None:
+            return Node(data)
 
-			while counter != (len(self.elements)):
-				element = self.elements[counter]
+        else:
+            if data < root.data:
+                node = cls.insert(root.left, data)
+                root.left = node
 
-				if element < self.aux.data:
-					if self.aux.left is None:
-						self.aux.left = Node(element)
-						counter += 1
-						self.aux = self.root
-					else:
-						self.aux = self.aux.left
-				elif element > self.aux.data:
-					if self.aux.right is None:
-						self.aux.right = Node(element)
-						counter += 1
-						self.aux = self.root
-					else:
-						self.aux = self.aux.right
-				else:
-					print(element)
-					counter += 1
+            elif data > root.data:
+                node = cls.insert(root.right, data)
+                root.right = node
 
-	def preorder(self, node):
-		if node is None:
-			return
-		else:
-			print(node.data, end=" ")
-			self.preorder(node.left)
-			self.preorder(node.right)
+            else:
+                pass
 
-	def inorder(self, node):
-		if node is None:
-			return
+            return root
 
-		else:
-			self.inorder(node.left)
-			print(node.data, end = " ")
-			self.inorder(node.right)
+    def ask_elements(self):
+        number_elements = int(input("Number of elements in the tree (root included): "))
 
-	def postorder(self, node):
-		if node is None:
-			return
-		else:
-			self.postorder(node.left)
-			self.postorder(node.right)
-			print(node.data, end=" ")
+        for i in range(number_elements):
+            data = int(input(f"Element {i + 1}: "))
+            self.root = self.insert(self.root, data)
 
-	def level_order(self, root):
-		self.queue.append(root)
+    def preorder(self, node):
+        if node is None:
+            return
+        else:
+            print(node.data, end=" ")
+            self.preorder(node.left)
+            self.preorder(node.right)
 
-		while len(self.queue) != 0:
-			node = self.queue.pop(0)
-			print(node.data, end=" ")
-			if node.left is not None:
-				self.queue.append(node.left)
-			if node.right is not None:
-				self.queue.append(node.right)
+    def inorder(self, node):
+        if node is None:
+            return
+
+        else:
+            self.inorder(node.left)
+            print(node.data, end=" ")
+            self.inorder(node.right)
+
+    def postorder(self, node):
+        if node is None:
+            return
+        else:
+            self.postorder(node.left)
+            self.postorder(node.right)
+            print(node.data, end=" ")
+
+    def level_order(self, root):
+        queue = []
+        queue.append(root)
+
+        while len(queue) != 0:
+            node = queue.pop(0)
+            print(node.data, end=" ")
+            if node.left is not None:
+                queue.append(node.left)
+            if node.right is not None:
+                queue.append(node.right)
 
 
-bt = BinarySearchTree(8, 3, 10, 1, 6, 14, 4, 7, 13)
+bt = BinarySearchTree()
 print("--------------------Preorder traversal-----------------")
 bt.preorder(bt.root)
 print("\n--------------------Inorder traversal-----------------")
@@ -86,3 +91,4 @@ print("\n--------------------Postorder traversal-----------------")
 bt.postorder(bt.root)
 print("\n--------------------Level traversal-----------------")
 bt.level_order(bt.root)
+
