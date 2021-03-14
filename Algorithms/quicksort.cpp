@@ -10,10 +10,7 @@ void swap(int* a, int* b){
 }
 
 void Quicksort(vector<int>& elements, int left, int right){
-	if(left == right){
-		return
-	}
-	else{
+	if(left < right){
 		int pivot = elements[right];
 		int i = left - 1;
 		
@@ -24,24 +21,30 @@ void Quicksort(vector<int>& elements, int left, int right){
 			}
 		}
 
-		swap(elements.at(i+1), elements.at(right);
+		swap(elements.at(i+1), elements.at(right));
 		Quicksort(elements, left, i);
 		Quicksort(elements, i+2, right);
 	}
 }
 
 void printElements(vector<int> elements){
+	cout << endl;
 	for(auto n: elements){
 		cout << n << "\t";
 	}	
+	cout << endl;
 }
 
 int main(){
-	vector<int> numbers = {7,2,1,8,6,3,5,4};
+	vector<int> numbers = {10,15,1,2,6,12,5,7};
+
 	//Printing the original values
 	printElements(numbers);
-	Quicksort(numbers, )
-	printElements(numbers, 0, numbers.size() - 1);
+
+	Quicksort(numbers, 0, numbers.size() - 1);
+
+	//Values after quicksort
+	printElements(numbers);
 
 	return 0;
 }
